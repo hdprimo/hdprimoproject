@@ -14,7 +14,7 @@ public class CountryInfoReader {
 
         if (nl.getLength()!=1)
         {
-            throw new Exception("Formato inv�lido.");
+            throw new Exception("Formato inválido.");
         }
         return (Element) nl.item(0);
     }
@@ -25,7 +25,7 @@ public class CountryInfoReader {
         NodeList nl = node.getChildNodes();
         if (nl.getLength()!=1)
         {
-        	throw new Exception("Formato inv�lido.");
+        	throw new Exception("Formato inválido.");
         }
         return nl.item(0).getNodeValue();
     }
@@ -41,7 +41,7 @@ public class CountryInfoReader {
             }
         }
         if (childWithTagName == null) {
-        	throw new Exception("Formato inv�lido.");
+        	throw new Exception("Formato inválido.");
         }
         return childWithTagName;
     }
@@ -62,13 +62,19 @@ public class CountryInfoReader {
 	}
 	
 	public static String readDataWebx (String xml) throws Exception{
-		int firstPos = xml.indexOf("Location");
-		int lastPos = xml.indexOf("Location", firstPos+1);
-		
-		String location = xml.substring(firstPos, lastPos);
-		firstPos = location.indexOf("(");
-		lastPos = location.indexOf(")");
-		
+		String location;
+		int firstPos=0;
+		int lastPos=0;
+		try{
+			firstPos = xml.indexOf("Location");
+			lastPos = xml.indexOf("Location", firstPos+1);
+	
+			location = xml.substring(firstPos, lastPos);
+			firstPos = location.indexOf("(");
+			lastPos = location.indexOf(")");
+		}catch(Exception e){
+			return xml;
+		}
 		return location.substring(firstPos+1, lastPos);
 		
 	}
